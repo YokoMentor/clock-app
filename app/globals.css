@@ -6,9 +6,10 @@
 }
 
 @theme {
-  --color-bg-dark: hsl(220, 40%, 13%);
-  --color-bg-light: hsl(227, 100%, 98%);
-  --color-error: hsl(0, 92%, 62%);
+  --color-light: hsl(0, 0%, 100%);
+  --color-dark: hsl(0, 0%, 0%);
+  --color-btn: hsl(0, 0%, 19%);
+  --color-btn-hover: hsl(0, 0%, 50%);
 }
 
 @media (prefers-color-scheme: dark) {

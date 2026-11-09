@@ -1,6 +1,6 @@
-import { Space_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
-export const spaceMono = Space_Mono({
-  weight: ['400','700'],
+export const inter = Inter({
+  weight: ['300','400','700'],
   subsets: ['latin'],
 })

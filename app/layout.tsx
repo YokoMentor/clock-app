@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { spaceMono } from '../ui/fonts';
+import { inter } from '../ui/fonts';
 
 export const metadata: Metadata = {
   title: "clock-app",
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html
       lang="en"
     >
-      <body className={`${spaceMono.className} min-h-full flex flex-col`}>{children}</body>
+      <body className={`${inter.className} min-h-full flex flex-col`}>{children}</body>
     </html>
   );
 }
