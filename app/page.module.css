@@ -1,0 +1,18 @@
+
+.bg_dark {
+  background-image: url('../public/bg-image-nighttime.jpg');
+}
+
+.bg_light {
+  background-image: url('../public/bg-image-daytime.jpg');
+}
+
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 1440px) {
+
+}
+

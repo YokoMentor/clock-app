@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
-  cacheComponents: false,
+ cacheComponents: false,
   partialPrefetching: false,
 };
 
