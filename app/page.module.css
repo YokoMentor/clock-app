@@ -1,18 +1,32 @@
 
 .bg_dark {
   background-image: url('../public/bg-image-nighttime.jpg');
+  background-size: cover;
 }
 
 .bg_light {
   background-image: url('../public/bg-image-daytime.jpg');
+  background-size: auto 128%
+}
+
+.bg_dark,
+.bg_light {
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
 @media (min-width: 768px) {
-
+  .bg_dark,
+  .bg_light {
+    background-size: cover; /* Increase to zoom in more */
+  }
 }
 
 @media (min-width: 1440px) {
-
+  .bg_dark,
+  .bg_light {
+    background-size: cover;
+  }
 }
 
