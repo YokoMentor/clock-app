@@ -16,6 +16,12 @@
   box-shadow: inset 0 0 0 50vw rgba(0,0,0,0.4);
 }
 
+@media (min-width: 768px) {
+    .bg_light {
+    background-size: cover;
+  }
+}
+
 
 
 @media (min-width: 1440px) {
