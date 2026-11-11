@@ -6,6 +6,8 @@ import styles from './page.module.css'
 export default function Page() {
   const [lightTheme, setLightTheme] = useState(true);
   const [themeSwitch, setThemeSwitch] = useState(true);
+  const [moreInfo, setMoreInfo] = useState(false);
+  const [infoSwitch, setInfoSwitch] = useState(false);
 
   function handleThemeSwitcher() {
       if (themeSwitch) {
@@ -14,6 +16,15 @@ export default function Page() {
         setLightTheme(false);
       }
       setThemeSwitch(!themeSwitch);
+  }
+
+  function handleBtnClick() {
+    if (infoSwitch) {
+      setMoreInfo(true);
+    } else {
+      setMoreInfo(false);
+    }
+    setInfoSwitch(!infoSwitch);
   }
 
   return (
@@ -45,8 +56,8 @@ export default function Page() {
           </div>
         </div>
         <div className='flex justify-end items-center w-[144px] h-[56px] rounded-full bg-light text-[16px] text-btn font-bold tracking-[.29em] cursor-pointer mt-15 md:mt-19 lg:mt-0 lg:mb-1'>
-          <div className='mr-3'>MORE</div>
-          <button className={`${styles.arrow_down} size-[39px] rounded-full bg-btn mr-2`}></button>
+          <div className='mr-3'>{moreInfo ? 'LESS' : 'MORE'}</div>
+          <button className={`${moreInfo ? styles.arrow_up : styles.arrow_down} size-[39px] rounded-full bg-btn mr-2`} onClick={handleBtnClick}></button>
         </div>
       </div>
     </div>
