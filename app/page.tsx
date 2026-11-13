@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import styles from './page.module.css'
-import { QuoteDataResponse, fetchQuoteData } from './actions'
+import { QuoteDataResponse, fetchQuoteData, LocationDataResponse, fetchLocationData } from './actions'
 
 export default function Page() {
   const [lightTheme, setLightTheme] = useState(true);
@@ -10,6 +10,7 @@ export default function Page() {
   const [infoSwitch, setInfoSwitch] = useState(false);
   const [isQuoteVisible, setIsQuoteVisible] = useState(true);
   const [quoteDataResponse, setQuoteDataResponse] = useState<QuoteDataResponse>();
+  const [locationDataResponse, setLocationDataResponse] = useState<LocationDataResponse>();
 
   const dtStyle = 'text-[10px] md:text-sm tracking-[.2em] md:tracking-[.25em] md:mb-2';
   const ddStyle = 'text-xl md:text-[40px] lg:text-[57px] font-bold';
@@ -44,6 +45,11 @@ export default function Page() {
 
   useEffect(() => {
     refreshQuote();
+    const init = async () => {
+    const data = await fetchLocationData();
+    setLocationDataResponse(data);
+  };
+  init();
   }, []);
 
   return (
@@ -71,7 +77,7 @@ export default function Page() {
                 <span className='font-bold text-[100px] md:text-[200px] leading-none'>11:37</span>
                 <span className='text-xl md:text-[40px]' onClick={handleThemeSwitcher}>BST</span>
               </p>
-              <p className={`${moreInfo ? 'mt-6 md:mt-2' : 'mt-2'} flex justify-start text-[14px] md:text-[24px] font-bold tracking-[.2em]`}>IN LONDON, UK</p>
+              <p className={`${moreInfo ? 'mt-6 md:mt-2' : 'mt-2'} flex justify-start text-[14px] md:text-[24px] font-bold tracking-[.2em] uppercase`}>IN {locationDataResponse?.city}, {locationDataResponse?.countryCode}</p>
             </div>
           </div>
         </div>
