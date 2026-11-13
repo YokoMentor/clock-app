@@ -1,7 +1,7 @@
 'use client'
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './page.module.css'
+import { QuoteDataResponse, fetchQuoteData } from './actions'
 
 export default function Page() {
   const [lightTheme, setLightTheme] = useState(true);
@@ -9,6 +9,7 @@ export default function Page() {
   const [moreInfo, setMoreInfo] = useState(false);
   const [infoSwitch, setInfoSwitch] = useState(false);
   const [isQuoteVisible, setIsQuoteVisible] = useState(true);
+  const [quoteDataResponse, setQuoteDataResponse] = useState<QuoteDataResponse>();
 
   const dtStyle = 'text-[10px] md:text-sm tracking-[.2em] md:tracking-[.25em] md:mb-2';
   const ddStyle = 'text-xl md:text-[40px] lg:text-[57px] font-bold';
@@ -36,6 +37,15 @@ export default function Page() {
     setInfoSwitch(!infoSwitch);
   }
 
+  const refreshQuote = async () => {
+    const data = await fetchQuoteData();
+    setQuoteDataResponse(data);
+  };
+
+  useEffect(() => {
+    refreshQuote();
+  }, []);
+
   return (
     <div className={`${lightTheme ? styles.bg_light : styles.bg_dark} relative flex flex-col justify-start items-center min-h-screen`}>
       <div className='flex flex-col lg:flex-row lg:items-end'>
@@ -43,12 +53,12 @@ export default function Page() {
           {isQuoteVisible &&
           <div className='flex justify-center items-start w-full text-left text-light text-lg mb-18 md:mb-46 lg:mb-34'>
             <div className='pr-4'>
-              <p>“The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and value.”</p>
-              <p className='font-bold mt-2'>Ada Lovelace</p>
+              <p className='font-light'>“{quoteDataResponse?.quote}”</p>
+              <p className='font-bold mt-2'>{quoteDataResponse?.author}</p>
             </div>
-            <div className='mt-2'>
-              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M7.188 10.667a.208.208 0 01.147.355l-2.344 2.206a5.826 5.826 0 009.578-2.488l2.387.746A8.322 8.322 0 013.17 14.94l-2.149 2.022a.208.208 0 01-.355-.148v-6.148h6.52zm7.617-7.63L16.978.958a.208.208 0 01.355.146v6.23h-6.498a.208.208 0 01-.147-.356L13 4.765A5.825 5.825 0 003.43 7.26l-2.386-.746a8.32 8.32 0 0113.76-3.477z" fill="#FFF" fillRule="nonzero" opacity=".5" onClick={handleThemeSwitcher}/></svg>
-            </div>
+            <button type='button' className='mt-2' onClick={refreshQuote} aria-label='Get another quote'>
+              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M7.188 10.667a.208.208 0 01.147.355l-2.344 2.206a5.826 5.826 0 009.578-2.488l2.387.746A8.322 8.322 0 013.17 14.94l-2.149 2.022a.208.208 0 01-.355-.148v-6.148h6.52zm7.617-7.63L16.978.958a.208.208 0 01.355.146v6.23h-6.498a.208.208 0 01-.147-.356L13 4.765A5.825 5.825 0 003.43 7.26l-2.386-.746a8.32 8.32 0 0113.76-3.477z" fill="#FFF" fillRule="nonzero" opacity=".5"/></svg>
+            </button>
           </div>}
           <div className={`${moreInfo ? 'mt-11 md:mt-0' : 'mt-18 md:mt-45 lg:mt-34'} flex flex-col justify-center items-start w-full text-light text-lg`}>
             <div>
@@ -59,7 +69,7 @@ export default function Page() {
               </div>
               <p className={`${moreInfo ? 'mt-7 md:mt-2' : 'mt-2'}`}>
                 <span className='font-bold text-[100px] md:text-[200px] leading-none'>11:37</span>
-                <span className='text-xl md:text-[40px]'>BST</span>
+                <span className='text-xl md:text-[40px]' onClick={handleThemeSwitcher}>BST</span>
               </p>
               <p className={`${moreInfo ? 'mt-6 md:mt-2' : 'mt-2'} flex justify-start text-[14px] md:text-[24px] font-bold tracking-[.2em]`}>IN LONDON, UK</p>
             </div>
