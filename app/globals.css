@@ -12,6 +12,10 @@
   --color-btn-hover: hsl(0, 0%, 50%);
 }
 
+@theme {
+  --breakpoint-lg: 71.875rem; /* 1150px, assuming 1rem = 16px */
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
