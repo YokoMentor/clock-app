@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import styles from './page.module.css'
-import { QuoteDataResponse, fetchQuoteData, LocationDataResponse, fetchLocationData } from './actions'
+import { QuoteDataResponse, fetchQuoteData, TimeDataResponse, fetchTimeData, LocationDataResponse, fetchLocationData } from './actions'
 
 export default function Page() {
   const [lightTheme, setLightTheme] = useState(true);
@@ -10,6 +10,7 @@ export default function Page() {
   const [infoSwitch, setInfoSwitch] = useState(false);
   const [isQuoteVisible, setIsQuoteVisible] = useState(true);
   const [quoteDataResponse, setQuoteDataResponse] = useState<QuoteDataResponse>();
+  const [timeDataResponse, setTimeDataResponse] = useState<TimeDataResponse>();
   const [locationDataResponse, setLocationDataResponse] = useState<LocationDataResponse>();
 
   const dtStyle = 'text-[10px] md:text-sm tracking-[.2em] md:tracking-[.25em] md:mb-2';
@@ -46,8 +47,10 @@ export default function Page() {
   useEffect(() => {
     refreshQuote();
     const init = async () => {
-    const data = await fetchLocationData();
-    setLocationDataResponse(data);
+      const timeData = await fetchTimeData();
+      const locationData = await fetchLocationData();
+      setTimeDataResponse(timeData);
+      setLocationDataResponse(locationData);
   };
   init();
   }, []);
@@ -74,8 +77,8 @@ export default function Page() {
                 <span className="hidden md:inline">, IT'S CURRENTLY</span>
               </div>
               <p className={`${moreInfo ? 'mt-7 md:mt-2' : 'mt-2'}`}>
-                <span className='font-bold text-[100px] md:text-[200px] leading-none'>11:37</span>
-                <span className='text-xl md:text-[40px]' onClick={handleThemeSwitcher}>BST</span>
+                <span className='font-bold text-[100px] md:text-[200px] leading-none'>{timeDataResponse?.datetime}</span>
+                <span className='text-xl md:text-[40px]' onClick={handleThemeSwitcher}>{timeDataResponse?.abbreviation}</span>
               </p>
               <p className={`${moreInfo ? 'mt-6 md:mt-2' : 'mt-2'} flex justify-start text-[14px] md:text-[24px] font-bold tracking-[.2em] uppercase`}>IN {locationDataResponse?.city}, {locationDataResponse?.countryCode}</p>
             </div>

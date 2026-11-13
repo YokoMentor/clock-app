@@ -3,6 +3,11 @@ export interface QuoteDataResponse {
   author: string;
 };
 
+export interface TimeDataResponse {
+  datetime: string;
+  abbreviation: string;
+};
+
 export interface LocationDataResponse {
   city: string;
   countryCode: string;
@@ -17,6 +22,21 @@ export async function fetchQuoteData(): Promise<QuoteDataResponse> {
     const result: QuoteDataResponse = {
       quote: '',
       author: ''
+    };
+    return result
+  }
+  return resultData
+}
+
+export async function fetchTimeData(): Promise<TimeDataResponse> {
+  let resultData;
+  try {
+    const response = await fetch('https://currenttime.now/public/api/ip');
+    resultData = await response.json();
+  } catch (error) {
+    const result: TimeDataResponse = {
+      datetime: '',
+      abbreviation: ''
     };
     return result
   }
