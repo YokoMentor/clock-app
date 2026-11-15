@@ -60,7 +60,7 @@ export default function Page() {
       <div className='flex flex-col lg:flex-row lg:items-end'>
         <div className='z-20 flex flex-col justify-center items-center lg:items-end w-[343px] md:w-[576px] text-center mt-8 md:mt-16 md:mr-16 lg:mr-98'>
           {isQuoteVisible &&
-          <div className='flex justify-center items-start w-full text-left text-light text-lg mb-18 md:mb-46 lg:mb-34'>
+          <div className='flex items-start w-full text-left text-light text-lg mb-18 md:mb-46 lg:mb-34'>
             <div className='pr-4'>
               <p className='font-light'>“{quoteDataResponse?.quote}”</p>
               <p className='font-bold mt-2'>{quoteDataResponse?.author}</p>
