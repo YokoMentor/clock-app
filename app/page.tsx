@@ -47,10 +47,10 @@ export default function Page() {
   useEffect(() => {
     refreshQuote();
     const init = async () => {
-      const timeData = await fetchTimeData();
       const locationData = await fetchLocationData();
-      setTimeDataResponse(timeData);
+      const timeData = await fetchTimeData(locationData.city);
       setLocationDataResponse(locationData);
+      setTimeDataResponse(timeData);
   };
   init();
   }, []);
@@ -77,7 +77,7 @@ export default function Page() {
                 <span className="hidden md:inline">, IT'S CURRENTLY</span>
               </div>
               <p className={`${moreInfo ? 'mt-7 md:mt-2' : 'mt-2'}`}>
-                <span className='font-bold text-[100px] md:text-[200px] leading-none'>{timeDataResponse?.datetime}</span>
+                <span className='font-bold text-[100px] md:text-[200px] leading-none'>{timeDataResponse?.hour}:{timeDataResponse?.minute}</span>
                 <span className='text-xl md:text-[40px]' onClick={handleThemeSwitcher}>{timeDataResponse?.abbreviation}</span>
               </p>
               <p className={`${moreInfo ? 'mt-6 md:mt-2' : 'mt-2'} flex justify-start text-[14px] md:text-[24px] font-bold tracking-[.2em] uppercase`}>IN {locationDataResponse?.city}, {locationDataResponse?.countryCode}</p>
