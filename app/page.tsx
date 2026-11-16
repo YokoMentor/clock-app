@@ -55,6 +55,26 @@ export default function Page() {
   init();
   }, []);
 
+  const currentHour = Number(timeDataResponse?.hour);
+
+  function handleTimeOfTheDay():string {
+    if (!Number.isFinite(currentHour)) {
+    return 'HAVE A GOOD DAY';
+    }
+
+    if (currentHour < 12) {
+      return 'GOOD MORNING';
+    } else if (currentHour < 17){
+      return 'GOOD AFTERNOON';
+    } else if (currentHour < 21){
+      return 'GOOD EVENING';
+    } else {
+      return 'GOOD NIGHT';
+    }
+  }
+
+  const timeOfTheDay = handleTimeOfTheDay();
+
   const weekdays = [
     'Monday',
     'Tuesday',
@@ -65,10 +85,7 @@ export default function Page() {
     'Sunday',
   ] as const;
 
-  const index = weekdays.indexOf(
-    timeDataResponse?.day_of_week as typeof weekdays[number]
-  );
-
+  const index = weekdays.indexOf(timeDataResponse?.day_of_week as typeof weekdays[number]);
   const dayNumber = index === -1 ? "" : index + 1;
 
   return (
@@ -88,8 +105,8 @@ export default function Page() {
           <div className={`${moreInfo ? 'mt-11 md:mt-0' : 'mt-18 md:mt-45 lg:mt-34'} flex flex-col justify-center items-start w-full text-light text-lg`}>
             <div>
               <div className='flex justify-start tracking-[.2em] text-xl'>
-                <svg className='mr-4' width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M11.78 19.417c.594 0 1.083.449 1.146 1.026l.006.125v1.842a1.152 1.152 0 01-2.296.125l-.007-.125v-1.842c0-.636.516-1.151 1.152-1.151zM6.382 17.18a1.15 1.15 0 01.09 1.527l-.09.1-1.302 1.303a1.152 1.152 0 01-1.718-1.528l.09-.1 1.302-1.302a1.15 1.15 0 011.628 0zm12.427 0l1.303 1.303a1.15 1.15 0 11-1.628 1.627L17.18 18.81a1.15 1.15 0 111.628-1.628zM11.781 5.879a5.908 5.908 0 015.901 5.902 5.908 5.908 0 01-5.901 5.902 5.908 5.908 0 01-5.902-5.902 5.908 5.908 0 015.902-5.902zm10.63 4.75a1.151 1.151 0 110 2.303h-1.843a1.151 1.151 0 110-2.303h1.842zm-19.418 0a1.151 1.151 0 01.126 2.296l-.125.007H1.15a1.151 1.151 0 01-.125-2.296l.125-.007h1.842zm1.985-7.268l.1.09 1.303 1.302a1.151 1.151 0 01-1.528 1.718l-.1-.09L3.45 5.08A1.15 1.15 0 014.978 3.36zm15.133.09c.45.449.45 1.178 0 1.628L18.808 6.38a1.151 1.151 0 11-1.628-1.628l1.303-1.303c.449-.449 1.178-.449 1.628 0zM11.781 0c.636 0 1.151.515 1.151 1.151v1.843a1.152 1.152 0 01-2.303 0V1.15C10.63.515 11.145 0 11.781 0z" fill="#FFF" fillRule="nonzero"/></svg>
-                <span>GOOD MORNING</span>
+                <div className={`${timeOfTheDay ? styles.icon_moon : styles.icon_sun} mr-4 inline-block size-[24px] bg-contain bg-no-repeat`}></div>
+                <span>{timeOfTheDay}</span>
                 <span className="hidden md:inline">, IT'S CURRENTLY</span>
               </div>
               <p className={`${moreInfo ? 'mt-7 md:mt-2' : 'mt-2'}`}>
