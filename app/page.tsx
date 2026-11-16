@@ -55,6 +55,22 @@ export default function Page() {
   init();
   }, []);
 
+  const weekdays = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ] as const;
+
+  const index = weekdays.indexOf(
+    timeDataResponse?.day_of_week as typeof weekdays[number]
+  );
+
+  const dayNumber = index === -1 ? "" : index + 1;
+
   return (
     <div className={`${lightTheme ? styles.bg_light : styles.bg_dark} relative flex flex-col justify-start items-center min-h-screen`}>
       <div className='flex flex-col lg:flex-row lg:items-end'>
@@ -94,22 +110,22 @@ export default function Page() {
             <div className={groupStyle}>
               <div className={sectionStyle}>
                 <dt className={dtStyle}>CURRENT TIMEZONE</dt>
-                <dd className={ddStyle}>Europe/London</dd>
+                <dd className={ddStyle}>{timeDataResponse?.timezone}</dd>
               </div>
               <div className={sectionStyle}>
                 <dt className={dtStyle}>DAY OF THE YEAR</dt>
-                <dd className={ddStyle}>295</dd>
+                <dd className={ddStyle}>{timeDataResponse?.day_of_year}</dd>
               </div>
             </div>
             <div className='hidden lg:block lg:w-[1px] lg:h-[252px] lg:bg-btn-hover lg:opacity-25 lg:ml-32 lg:mr-20'></div>
             <div className={groupStyle}>
               <div className={sectionStyle}>
                 <dt className={dtStyle}>DAY OF THE WEEK</dt>
-                <dd className={ddStyle}>5</dd>
+                <dd className={ddStyle}>{dayNumber}</dd>
               </div>
               <div className={sectionStyle}>
                 <dt className={dtStyle}>WEEK NUMBER</dt>
-                <dd className={ddStyle}>42</dd>
+                <dd className={ddStyle}>{timeDataResponse?.week_number}</dd>
               </div>
             </div>
           </div>

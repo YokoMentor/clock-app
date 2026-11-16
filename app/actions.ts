@@ -12,6 +12,10 @@ export interface TimeDataResponse {
   hour: string;
   minute: string;
   abbreviation: string;
+  timezone: string;
+  day_of_week: string;
+  day_of_year: string;
+  week_number: string;
 };
 
 export async function fetchQuoteData(): Promise<QuoteDataResponse> {
@@ -55,7 +59,11 @@ export async function fetchTimeData(city: string): Promise<TimeDataResponse> {
     const result: TimeDataResponse = {
       hour: '',
       minute: '',
-      abbreviation: ''
+      abbreviation: '',
+      timezone: '',
+      day_of_week: '',
+      day_of_year: '',
+      week_number: ''
     };
     return result
   }
