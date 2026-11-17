@@ -18,6 +18,12 @@ export default function Page() {
   const sectionStyle = 'flex md:flex-col justify-between items-center md:items-start';
   const groupStyle = 'flex flex-col gap-3 md:gap-10 lg:gap-8';
 
+  const GOOD_DAY = 'HAVE A GOOD DAY';
+  const MORNING = 'GOOD MORNING';
+  const AFTERNOON = 'GOOD AFTERNOON';
+  const EVENING = 'GOOD EVENING';
+  const NIGHT = 'GOOD NIGHT';
+
 
   function handleThemeSwitcher() {
       if (themeSwitch) {
@@ -55,21 +61,23 @@ export default function Page() {
   init();
   }, []);
 
+
+
   const currentHour = Number(timeDataResponse?.hour);
 
   function handleTimeOfTheDay():string {
     if (!Number.isFinite(currentHour)) {
-    return 'HAVE A GOOD DAY';
+    return GOOD_DAY;
     }
 
     if (currentHour < 12) {
-      return 'GOOD MORNING';
+      return MORNING;
     } else if (currentHour < 17){
-      return 'GOOD AFTERNOON';
+      return AFTERNOON;
     } else if (currentHour < 21){
-      return 'GOOD EVENING';
+      return EVENING;
     } else {
-      return 'GOOD NIGHT';
+      return NIGHT;
     }
   }
 
