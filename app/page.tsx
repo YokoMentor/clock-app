@@ -81,6 +81,23 @@ export default function Page() {
     }
   }
 
+  const isPollingEnabled = false;
+
+  if(isPollingEnabled) {
+    useEffect(() => {
+      const interval = setInterval(pollTime, 10000);
+      return () => clearInterval(interval)
+    }, []);
+  }
+
+  async function pollTime() {
+    console.log('poll')
+    const locationData = await fetchLocationData();
+    const timeData = await fetchTimeData(locationData.city);
+    setLocationDataResponse(locationData);
+    setTimeDataResponse(timeData);
+  }
+
   const timeOfTheDay = handleTimeOfTheDay();
 
   const weekdays = [
